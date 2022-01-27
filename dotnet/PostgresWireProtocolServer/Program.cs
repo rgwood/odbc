@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PostgresWireProtocolServer
+﻿namespace PostgresWireProtocolServer
 {
     public class Program
     {

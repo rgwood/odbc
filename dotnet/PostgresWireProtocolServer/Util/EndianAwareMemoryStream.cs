@@ -1,6 +1,3 @@
-using System;
-using System.IO;
-
 namespace PostgresWireProtocolServer.Util
 {
     public class EndianAwareMemoryStream : MemoryStream
