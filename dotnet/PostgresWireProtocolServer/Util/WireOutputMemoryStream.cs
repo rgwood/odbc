@@ -1,15 +1,13 @@
-namespace PostgresWireProtocolServer.Util
-{
-    public class WireOutputMemoryStream : EndianAwareMemoryStream
-    {
-        public WireOutputMemoryStream() : base(false)
-        {
-        }
+namespace PostgresWireProtocolServer.Util;
 
-        public void WriteZeroByte() 
-        {
-            base.Write((byte) 0);
-        }
+public class WireOutputMemoryStream : EndianAwareMemoryStream
+{
+    public WireOutputMemoryStream() : base(false)
+    {
     }
 
+    public void WriteZeroByte()
+    {
+        base.Write((byte)0);
+    }
 }
