@@ -27,7 +27,7 @@ public class WireServer
                 TcpClient client = server.AcceptTcpClient();
                 Console.WriteLine("Connected!");
 
-                Thread t = new Thread(new ParameterizedThreadStart(HandleRequest));
+                Thread t = new(new ParameterizedThreadStart(HandleRequest));
                 t.Start(client);
             }
         }

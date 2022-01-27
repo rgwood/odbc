@@ -23,7 +23,7 @@ internal class PostgresTypeInformation
     /// </summary>
     public bool HasSizeInformation => Size != null;
 
-    public static Dictionary<PostgresTypeOID, PostgresTypeInformation> PredefinedTypes = new Dictionary<PostgresTypeOID, PostgresTypeInformation>()
+    public static Dictionary<PostgresTypeOID, PostgresTypeInformation> PredefinedTypes = new()
         {
             // numeric types
             { PostgresTypeOID.Int2, new PostgresTypeInformation(PostgresTypeOID.Int2, 32) },
@@ -102,7 +102,7 @@ internal class PostgresTypeInformation
     /// </summary>
     /// <typeparam name="System.Type">CLR type.</typeparam>
     /// <typeparam name="PostgresTypeInformation">Postgres type information.</typeparam>
-    public static Dictionary<Type, PostgresTypeInformation> Mapping = new Dictionary<System.Type, PostgresTypeInformation>()
+    public static Dictionary<Type, PostgresTypeInformation> Mapping = new()
         {
             { typeof(short), new PostgresTypeInformation(PostgresTypeOID.Int2, 32) },
             { typeof(int), new PostgresTypeInformation(PostgresTypeOID.Int4, 4) },
