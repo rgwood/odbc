@@ -173,9 +173,9 @@ public class WireServer
                 catch (Exception ex)
                 {
                     // ignore all exceptions except IOExceptions as they mean the connection has been lost
-                    if (ex is System.IO.IOException)
+                    if (ex is IOException)
                     {
-                        throw ex;
+                        throw;
                     }
                     Console.WriteLine("Exception: {0}", ex.ToString());
                 }
