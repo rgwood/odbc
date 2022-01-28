@@ -372,8 +372,7 @@ public class WireServer
         wireOutput.Write((byte)'K');
         wireOutput.Write(12);
 
-        var processId = System.Diagnostics.Process.GetCurrentProcess().Id;
-        wireOutput.Write(processId);
+        wireOutput.Write(Environment.ProcessId);
         wireOutput.Write(3913636326 /* a magic random number */);
         outputStream.Write(wireOutput.ToArray());
     }
