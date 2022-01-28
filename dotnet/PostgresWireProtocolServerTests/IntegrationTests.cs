@@ -32,7 +32,6 @@ public class IntegrationTests
             var wireServer = new WireServer("127.0.0.1", 9876, cts.Token);
             var listenerTask = wireServer.StartListener();
 
-
             var connString = "Host=localhost:9876;Username=mylogin;Password=mypass;Database=mydatabase";
 
             await using var conn = new NpgsqlConnection(connString);
@@ -41,8 +40,6 @@ public class IntegrationTests
             cts.Cancel();
 
             await Assert.ThrowsAsync<OperationCanceledException>(async () => await listenerTask);
-
-
         }
         finally
         {

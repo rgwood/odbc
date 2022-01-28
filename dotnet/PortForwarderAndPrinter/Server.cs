@@ -57,11 +57,11 @@ namespace PortForwarderAndPrinter
 
             TcpClient toServer = new TcpClient(remoteIp, remotePort);
             var outputStream = toServer.GetStream();
-            
+
             var bytes = new byte[8192];
             int bytesReceived;
 
-            try 
+            try
             {
                 while ((bytesReceived = inputStream.Read(bytes, 0, bytes.Length)) > 0)
                 {
@@ -73,12 +73,13 @@ namespace PortForwarderAndPrinter
                         //while (outputStream.DataAvailable && (bytesReceived = outputStream.Read(bytes, 0, bytes.Length)) > 0)
                         bytesReceived = outputStream.Read(bytes, 0, bytes.Length);
                         {
-                            if (bytesReceived != -1) {
+                            if (bytesReceived != -1)
+                            {
                                 Print("From server", bytes, bytesReceived);
                                 inputStream.Write(bytes, 0, bytesReceived);
                             }
                         }
-                    } 
+                    }
                     catch (IOException e)
                     {
                         var closeStream = IsConnectionTerminationByOtherParty(e);
@@ -101,14 +102,14 @@ namespace PortForwarderAndPrinter
         {
             if (e.InnerException != null && e.InnerException is SocketException se && se.NativeErrorCode == 10054)
             {
-                lock (this) 
+                lock (this)
                 {
                     messageCounter++;
                     Console.WriteLine($"{messageCounter} Connection terminated by other party");
                     return true;
                 }
             }
-            else 
+            else
             {
                 Console.WriteLine("Exception: {0}", e);
             }
