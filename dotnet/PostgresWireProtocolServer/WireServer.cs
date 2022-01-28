@@ -118,7 +118,7 @@ public class WireServer
             SendParameterStatusMessage(combinedOutput, "integer_datetimes", "on");
             SendParameterStatusMessage(combinedOutput, "is_superuser", "off");
             SendParameterStatusMessage(combinedOutput, "server_encoding", "UTF8");
-            SendParameterStatusMessage(combinedOutput, "server_version", "13.X");
+            SendParameterStatusMessage(combinedOutput, "server_version", "13.0");
             SendParameterStatusMessage(combinedOutput, "session_authorization", "postgres");
             SendParameterStatusMessage(combinedOutput, "standard_conforming_strings", "on");
             SendParameterStatusMessage(combinedOutput, "TimeZone", "Europe/London");
