@@ -1,30 +1,34 @@
+using System.Data;
 using System.Net;
 using System.Net.Sockets;
 using PostgresWireProtocolServer.Exceptions;
-using PostgresWireProtocolServer.Util;
 using PostgresWireProtocolServer.PostgresTypeHandling;
-using System.Data;
+using PostgresWireProtocolServer.Util;
 
 namespace PostgresWireProtocolServer;
 
 public class WireServer
 {
     TcpListener server = null;
-    public WireServer(string ip, int port)
+    private readonly CancellationToken cancellationToken;
+
+    public WireServer(string ip, int port, CancellationToken cancellationToken)
     {
         IPAddress localAddr = IPAddress.Parse(ip);
         server = new TcpListener(localAddr, port);
+        this.cancellationToken = cancellationToken;
     }
 
-    public void StartListener()
+    public async Task StartListener()
     {
         server.Start();
         try
         {
             while (true)
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 Console.WriteLine("Waiting for a connection...");
-                TcpClient client = server.AcceptTcpClient();
+                TcpClient client = await server.AcceptTcpClientAsync(cancellationToken);
                 Console.WriteLine("Connected!");
 
                 Thread t = new(new ParameterizedThreadStart(HandleRequest));
@@ -130,6 +134,7 @@ public class WireServer
             var requestCount = 0;
             while ((bytesReceived = stream.Read(bytes, 0, bytes.Length)) != -1)
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 try
                 {
                     requestCount++;
