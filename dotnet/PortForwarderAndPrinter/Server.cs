@@ -22,7 +22,7 @@ public class Server
         this.remotePort = remotePort;
     }
 
-    public void StartListener()
+    public async Task StartListener()
     {
         server.Start();
         try
@@ -30,7 +30,7 @@ public class Server
             while (true)
             {
                 Console.WriteLine("Waiting for a connection...");
-                TcpClient client = server.AcceptTcpClient();
+                TcpClient client = await server.AcceptTcpClientAsync();
                 Console.WriteLine("Connected!");
 
                 Thread t = new Thread(new ParameterizedThreadStart(HandleRequest));
