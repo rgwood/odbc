@@ -1,9 +1,11 @@
 using System.Data;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
 using PostgresWireProtocolServer.Exceptions;
 using PostgresWireProtocolServer.PostgresTypeHandling;
 using PostgresWireProtocolServer.Util;
+using Spectre.Console;
 
 namespace PostgresWireProtocolServer;
 
@@ -37,7 +39,7 @@ public class WireServer
         }
         catch (SocketException e)
         {
-            Console.WriteLine("SocketException: {0}", e);
+            AnsiConsole.WriteException(e.Demystify());
         }
         finally
         {
@@ -182,14 +184,14 @@ public class WireServer
                     {
                         throw;
                     }
-                    Console.WriteLine("Exception: {0}", ex.ToString());
+                    AnsiConsole.WriteException(ex.Demystify());
                 }
                 SendReadyForQuery(stream);
             }
         }
         catch (Exception e)
         {
-            Console.WriteLine("Exception: {0}", e.ToString());
+            AnsiConsole.WriteException(e.Demystify());
         }
         finally
         {
